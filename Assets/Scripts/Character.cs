@@ -30,7 +30,7 @@ public class Character : MonoBehaviour
     }
     private void OnTriggerEnter(Collider col)
     {
-        if (col.name=="x2"||col.name=="+3")
+        if (col.name=="x2"||col.name=="+3" || col.name == "-4" || col.name == "/2")
         {
             gameManager.CharacterManager(col.name, col.transform);
         }

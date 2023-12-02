@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
             }
         }*/
     }
-    public void CharacterManager(string blockData,Transform blockPos)
+    public void CharacterManager(string blockData, Transform blockPos)
     {
         switch (blockData)
         {
@@ -41,14 +41,14 @@ public class GameManager : MonoBehaviour
                 int circleCount = 0;
                 foreach (var item in AICharacters)
                 {
-                    if (circleCount<characterCount)
+                    if (circleCount < characterCount)
                     {
                         if (!item.activeInHierarchy)
                         {
                             item.transform.position = blockPos.position;
                             item.SetActive(true);
                             circleCount++;
-                            
+
                         }
                     }
                     else
@@ -58,6 +58,109 @@ public class GameManager : MonoBehaviour
                     }
                 }
                 characterCount *= 2;
+                break;
+            case "+3":
+                int circleCount2 = 0;
+                foreach (var item in AICharacters)
+                {
+                    if (circleCount2 < 3)
+                    {
+                        if (!item.activeInHierarchy)
+                        {
+                            item.transform.position = blockPos.position;
+                            item.SetActive(true);
+                            circleCount2++;
+
+                        }
+                    }
+                    else
+                    {
+                        circleCount2 = 0;
+                        break;
+                    }
+                }
+                characterCount += 3;
+                break;
+            case "-4":
+                if (characterCount < 4)
+                {
+                    foreach (var item in AICharacters)
+                    {
+                        item.transform.position = Vector3.zero;
+                        item.SetActive(false);
+                    }
+                    characterCount = 1;
+                }
+                else
+                {
+                    int circleCount3 = 0;
+                    foreach (var item in AICharacters)
+                    {
+                        if (circleCount3 != 4)
+                        {
+                            if (item.activeInHierarchy)
+                            {
+                                item.transform.position = Vector3.zero;
+                                item.SetActive(false);
+                                circleCount3++;
+                            }
+                        }
+                        else
+                        {
+                            circleCount3 = 0;
+                            break;
+                        }
+                    }
+                    characterCount -= 4;
+                }
+
+
+                break;
+            case "/2":
+                if (characterCount <= 2)
+                {
+                    foreach (var item in AICharacters)
+                    {
+                        item.transform.position = Vector3.zero;
+                        item.SetActive(false);
+                    }
+                    characterCount = 1;
+
+                }
+                else
+                {
+                    int countCircle = characterCount / 2;
+                    int circleCount4 = 0;
+                    foreach (var item in AICharacters)
+                    {
+                        if (circleCount4 != countCircle)
+                        {
+                            if (item.activeInHierarchy)
+                            {
+                                item.transform.position = Vector3.zero;
+                                item.SetActive(false);
+                                circleCount4++;
+                            }
+                        }
+                        else
+                        {
+                            circleCount4 = 0;
+                            break;
+                        }
+                    }
+                    if (characterCount%2==0)
+                    {
+                        characterCount /= 2;
+                    }
+                    else
+                    {
+                        characterCount /= 2;
+                        characterCount++;
+                    }
+                    
+                }
+
+
                 break;
         }
     }
